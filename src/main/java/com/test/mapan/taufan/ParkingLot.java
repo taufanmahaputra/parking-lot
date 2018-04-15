@@ -58,6 +58,26 @@ public class ParkingLot
       	}
 	}
 
+	public void findSlotNumberByRegNumber(String regNumber) {
+		int result = -1;
+
+		for(Park park : parked) {
+			Car car = park.getCar();		      
+        	
+        	if (!park.isAvailableForPark()) {
+	        	if(car.getNumberPlate().equals(regNumber)) {
+	        		result = park.getSlotNumber();
+	        		break;
+	        	}
+	        }
+		}
+
+		if (result > 0)
+			System.out.println(result);
+		else
+			System.out.println("Not found");
+	}
+
 	public boolean isFull() {
 		return parked.size() >= parkSize;
 	}
