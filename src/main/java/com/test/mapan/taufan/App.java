@@ -29,7 +29,7 @@ public class App
 			parkingLot.status();
 		}
 		else if (cmd.equals("registration_numbers_for_cars_with_colour")) {
-
+			parkingLot.findAllRegNumbersByColour(commands[1]);
 		}
 		else if (cmd.equals("slot_numbers_for_cars_with_colour")) {
 			parkingLot.findAllSlotNumbersByColour(commands[1]);
