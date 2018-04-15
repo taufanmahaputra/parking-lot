@@ -1,8 +1,9 @@
 package com.test.mapan.taufan;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 /**
  * Parking Lot Class
@@ -11,12 +12,12 @@ import java.util.Queue;
 public class ParkingLot 
 {
 	private int parkSize;
-	private Queue<Park> availablePark;
+	private PriorityQueue<Park> availablePark;
 	private ArrayList<Park> parked;
 
 	ParkingLot(int size) {
 		parkSize = size;
-		availablePark = new LinkedList<Park>();
+		availablePark = new PriorityQueue<Park>(6, new ParkComparator());
 		parked = new ArrayList<Park>();
 	}
 
@@ -60,4 +61,14 @@ public class ParkingLot
 	public boolean isFull() {
 		return parked.size() >= parkSize;
 	}
+}
+
+class ParkComparator implements Comparator<Park>{
+     
+    // Overriding compare() method of Comparator 
+    // for descending order of slot number
+    public int compare(Park park1, Park park2) {
+    	return 	park1.getSlotNumber() > park2.getSlotNumber() ? 1 :
+    			(park1.getSlotNumber() < park2.getSlotNumber() ? -1 : 0);
+    }
 }
