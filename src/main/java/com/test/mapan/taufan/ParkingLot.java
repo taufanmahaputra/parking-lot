@@ -2,7 +2,6 @@ package com.test.mapan.taufan;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -61,7 +60,7 @@ public class ParkingLot
 	public void findAllSlotNumbersByColour(String color) {
 		ArrayList<Integer> result = new ArrayList();
 
-		for(Park park : parked) {
+		for (Park park : parked) {
 			Car car = park.getCar();		      
         	
         	if (!park.isAvailableForPark()) {
@@ -111,7 +110,7 @@ public class ParkingLot
 class ParkComparator implements Comparator<Park>{
      
     // Overriding compare() method of Comparator 
-    // for descending order of slot number
+    // for ascending order of slot number
     public int compare(Park park1, Park park2) {
     	return 	park1.getSlotNumber() > park2.getSlotNumber() ? 1 :
     			(park1.getSlotNumber() < park2.getSlotNumber() ? -1 : 0);
