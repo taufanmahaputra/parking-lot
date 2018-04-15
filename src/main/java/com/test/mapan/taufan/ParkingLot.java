@@ -17,7 +17,7 @@ public class ParkingLot
 
 	ParkingLot(int size) {
 		parkSize = size;
-		availablePark = new PriorityQueue<Park>(6, new ParkComparator());
+		availablePark = new PriorityQueue<Park>(parkSize, new ParkComparator());
 		parked = new ArrayList<Park>();
 	}
 
@@ -58,14 +58,39 @@ public class ParkingLot
       	}
 	}
 
-	public void findSlotNumberByRegNumber(String regNumber) {
-		int result = -1;
+	public void findAllSlotNumbersByColour(String color) {
+		ArrayList<Integer> result = new ArrayList();
 
 		for(Park park : parked) {
 			Car car = park.getCar();		      
         	
         	if (!park.isAvailableForPark()) {
-	        	if(car.getNumberPlate().equals(regNumber)) {
+	        	if(car.getColor().equals(color)) {
+	        		result.add(park.getSlotNumber());
+	        	}
+	        }
+		}
+
+		if (result.size() > 0) {
+			for (int idx = 0; idx < result.size(); idx++) { 		      
+		        if (idx != result.size()-1)
+		        	System.out.print(result.get(idx) + ", "); 
+		        else
+		        	System.out.println(result.get(idx)); 		
+		    }   
+		}
+		else
+			System.out.println("Not found");
+	}
+
+	public void findSlotNumberByRegNumber(String regNumber) {
+		int result = -1;
+
+		for (Park park : parked) {
+			Car car = park.getCar();		      
+        	
+        	if (!park.isAvailableForPark()) {
+	        	if (car.getNumberPlate().equals(regNumber)) {
 	        		result = park.getSlotNumber();
 	        		break;
 	        	}
