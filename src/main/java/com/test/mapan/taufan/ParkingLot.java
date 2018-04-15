@@ -57,9 +57,14 @@ public class ParkingLot
 
 		idx -= 1;
 		Park park = parked.get(idx);
+		String color = park.getCar().getColor();
+		ArrayList<Park> parks = parksWithColorKey.get(color);
 
 		park.setAvailableForPark();
 		availablePark.add(park);
+
+		parks.remove(parks.indexOf(park));
+		parksWithColorKey.put(color, parks);
 	}
 
 	public void status() {
@@ -82,14 +87,18 @@ public class ParkingLot
 		else {
 			ArrayList<Park> result = parksWithColorKey.get(color);
 
-			for (int idx = 0; idx < result.size(); idx++) { 
-				String numberPlate = result.get(idx).getCar().getNumberPlate();		
+			if (result.size() == 0)
+				System.out.println("Not found");
+			else {
+				for (int idx = 0; idx < result.size(); idx++) { 
+					String numberPlate = result.get(idx).getCar().getNumberPlate();		
 
-		        if (idx != result.size()-1)
-		        	System.out.print(numberPlate + ", "); 
-		        else
-		        	System.out.println(numberPlate); 		
-		    }   
+			        if (idx != result.size()-1)
+			        	System.out.print(numberPlate + ", "); 
+			        else
+			        	System.out.println(numberPlate); 		
+			    }   
+			}
 		}
 	}
 
@@ -99,14 +108,18 @@ public class ParkingLot
 		else {
 			ArrayList<Park> result = parksWithColorKey.get(color);
 
-			for (int idx = 0; idx < result.size(); idx++) { 
-				int numberPlate = result.get(idx).getSlotNumber();		
+			if (result.size() == 0)
+				System.out.println("Not found");
+			else {
+				for (int idx = 0; idx < result.size(); idx++) { 
+					int numberPlate = result.get(idx).getSlotNumber();		
 
-		        if (idx != result.size()-1)
-		        	System.out.print(numberPlate + ", "); 
-		        else
-		        	System.out.println(numberPlate); 		
-		    }   
+			        if (idx != result.size()-1)
+			        	System.out.print(numberPlate + ", "); 
+			        else
+			        	System.out.println(numberPlate); 		
+			    }
+			}   
 		}
 	}
 
