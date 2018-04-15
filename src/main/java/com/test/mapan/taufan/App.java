@@ -23,10 +23,10 @@ public class App
 			parkingLot.parkCar(new Car(commands[1], commands[2]));
 		}
 		else if (cmd.equals("leave")) {
-			System.out.println("leave");
+			parkingLot.leave(Integer.parseInt(commands[1]));
 		}
 		else if (cmd.equals("status")) {
-			System.out.println("status");
+			parkingLot.status();
 		}
 		else if (cmd.equals("registration_numbers_for_cars_with_colour")) {
 
