@@ -16,6 +16,7 @@
     </dependency>
   </dependencies>
   <build>
+   <finalName>parking_lot</finalName>
     <plugins>
       <plugin>
         <!-- Build an executable JAR -->
