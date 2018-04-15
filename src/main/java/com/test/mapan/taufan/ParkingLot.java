@@ -15,41 +15,41 @@ public class ParkingLot
 	private int parkSize;
 	private PriorityQueue<Park> availablePark;
 	private ArrayList<Park> parked;
-	private Map<String, ArrayList<Car>> carsWithColorKey;
+	private Map<String, ArrayList<Park>> parksWithColorKey;
 
 	ParkingLot(int size) {
 		parkSize = size;
 		availablePark = new PriorityQueue<Park>(parkSize, new ParkComparator());
 		parked = new ArrayList<Park>();
-		carsWithColorKey = new HashMap<String, ArrayList<Car>>();
+		parksWithColorKey = new HashMap<String, ArrayList<Park>>();
 	}
 
 	public void parkCar(Car car) {
 		if (!isFull()) {
 			Park park = new Park(car);
 			parked.add(park);
-			assignCarWithColor(car);
+			assignParkWithColor(park);
 		}
 		else if (!availablePark.isEmpty()) {
 			Park park = availablePark.remove();
 			park.changeCar(car);
-			assignCarWithColor(car);
+			assignParkWithColor(park);
 		}
 		else
 			System.out.println("Sorry, parking lot is full");
 	}
 
-	public void assignCarWithColor(Car car) {
-		String color = car.getColor();
+	public void assignParkWithColor(Park park) {
+		String color = park.getCar().getColor();
 
-		if (!carsWithColorKey.containsKey(color)) {
-			ArrayList<Car> cars = new ArrayList<Car>();
-			carsWithColorKey.put(color, cars);
+		if (!parksWithColorKey.containsKey(color)) {
+			ArrayList<Park> parks = new ArrayList<Park>();
+			parksWithColorKey.put(color, parks);
 		}
 
-		ArrayList<Car> result = carsWithColorKey.get(color);
-		result.add(car);
-		carsWithColorKey.put(color, result);
+		ArrayList<Park> result = parksWithColorKey.get(color);
+		result.add(park);
+		parksWithColorKey.put(color, result);
 	}
 
 	public void leave(int idx) {
@@ -76,45 +76,38 @@ public class ParkingLot
       	}
 	}
 
-	public void findAllRegNumbersByColour(String color) {
-		
-		if (!carsWithColorKey.containsKey(color))
+	public void findAllRegNumbersByColour(String color) {	
+		if (!parksWithColorKey.containsKey(color))
 			System.out.println("Not found");
 		else {
-			ArrayList<Car> result = carsWithColorKey.get(color);
+			ArrayList<Park> result = parksWithColorKey.get(color);
 
-			for (int idx = 0; idx < result.size(); idx++) { 		      
+			for (int idx = 0; idx < result.size(); idx++) { 
+				String numberPlate = result.get(idx).getCar().getNumberPlate();		
+
 		        if (idx != result.size()-1)
-		        	System.out.print(result.get(idx).getNumberPlate() + ", "); 
+		        	System.out.print(numberPlate + ", "); 
 		        else
-		        	System.out.println(result.get(idx).getNumberPlate()); 		
+		        	System.out.println(numberPlate); 		
 		    }   
 		}
 	}
 
 	public void findAllSlotNumbersByColour(String color) {
-		ArrayList<Integer> result = new ArrayList();
+		if (!parksWithColorKey.containsKey(color))
+			System.out.println("Not found");
+		else {
+			ArrayList<Park> result = parksWithColorKey.get(color);
 
-		for (Park park : parked) {
-			Car car = park.getCar();		      
-        	
-        	if (!park.isAvailableForPark()) {
-	        	if(car.getColor().equals(color)) {
-	        		result.add(park.getSlotNumber());
-	        	}
-	        }
-		}
+			for (int idx = 0; idx < result.size(); idx++) { 
+				int numberPlate = result.get(idx).getSlotNumber();		
 
-		if (result.size() > 0) {
-			for (int idx = 0; idx < result.size(); idx++) { 		      
 		        if (idx != result.size()-1)
-		        	System.out.print(result.get(idx) + ", "); 
+		        	System.out.print(numberPlate + ", "); 
 		        else
-		        	System.out.println(result.get(idx)); 		
+		        	System.out.println(numberPlate); 		
 		    }   
 		}
-		else
-			System.out.println("Not found");
 	}
 
 	public void findSlotNumberByRegNumber(String regNumber) {
