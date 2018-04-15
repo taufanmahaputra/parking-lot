@@ -32,10 +32,10 @@ public class App
 
 		}
 		else if (cmd.equals("slot_numbers_for_cars_with_colour")) {
-
+			parkingLot.findAllSlotNumbersByColour(commands[1]);
 		}
 		else { // equals to slot_number_for_registration_number
-
+			parkingLot.findSlotNumberByRegNumber(commands[1]);
 		} 
 	}
 
