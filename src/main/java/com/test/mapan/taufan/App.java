@@ -8,15 +8,48 @@ import java.util.Scanner;
  */
 public class App 
 {
+	private ParkingLot parkingLot;
+
+	public void processInput(String[] commands) {
+		String cmd = commands[0];
+
+		if (cmd.equals("create_parking_lot")) {
+			int size = Integer.parseInt(commands[1]);
+			parkingLot = new ParkingLot(size);
+
+			System.out.println("Created a parking lot with " + size + " slots");
+		}
+		else if (cmd.equals("park")) {
+			parkingLot.parkCar(new Car(commands[1], commands[2]));
+		}
+		else if (cmd.equals("leave")) {
+			System.out.println("leave");
+		}
+		else if (cmd.equals("status")) {
+			System.out.println("status");
+		}
+		else if (cmd.equals("registration_numbers_for_cars_with_colour")) {
+
+		}
+		else if (cmd.equals("slot_numbers_for_cars_with_colour")) {
+
+		}
+		else { // equals to slot_number_for_registration_number
+
+		} 
+	}
+
     public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
+
+		App main = new App();
 
 		while(true) {
 			String command = input.nextLine();
 
 			String[] commands = command.split(" ");
 
-			ParkingLot.processInput(commands);
+			main.processInput(commands);
 		}
 
 		// INPUT
