@@ -2,7 +2,9 @@ package com.test.mapan.taufan;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.Map;
 
 /**
  * Parking Lot Class
@@ -13,24 +15,41 @@ public class ParkingLot
 	private int parkSize;
 	private PriorityQueue<Park> availablePark;
 	private ArrayList<Park> parked;
+	private Map<String, ArrayList<Car>> carsWithColorKey;
 
 	ParkingLot(int size) {
 		parkSize = size;
 		availablePark = new PriorityQueue<Park>(parkSize, new ParkComparator());
 		parked = new ArrayList<Park>();
+		carsWithColorKey = new HashMap<String, ArrayList<Car>>();
 	}
 
 	public void parkCar(Car car) {
 		if (!isFull()) {
 			Park park = new Park(car);
 			parked.add(park);
+			assignCarWithColor(car);
 		}
 		else if (!availablePark.isEmpty()) {
 			Park park = availablePark.remove();
 			park.changeCar(car);
+			assignCarWithColor(car);
 		}
 		else
 			System.out.println("Sorry, parking lot is full");
+	}
+
+	public void assignCarWithColor(Car car) {
+		String color = car.getColor();
+
+		if (!carsWithColorKey.containsKey(color)) {
+			ArrayList<Car> cars = new ArrayList<Car>();
+			carsWithColorKey.put(color, cars);
+		}
+
+		ArrayList<Car> result = carsWithColorKey.get(color);
+		result.add(car);
+		carsWithColorKey.put(color, result);
 	}
 
 	public void leave(int idx) {
@@ -55,6 +74,22 @@ public class ParkingLot
 	        	System.out.println();
 	        }
       	}
+	}
+
+	public void findAllRegNumbersByColour(String color) {
+		
+		if (!carsWithColorKey.containsKey(color))
+			System.out.println("Not found");
+		else {
+			ArrayList<Car> result = carsWithColorKey.get(color);
+
+			for (int idx = 0; idx < result.size(); idx++) { 		      
+		        if (idx != result.size()-1)
+		        	System.out.print(result.get(idx).getNumberPlate() + ", "); 
+		        else
+		        	System.out.println(result.get(idx).getNumberPlate()); 		
+		    }   
+		}
 	}
 
 	public void findAllSlotNumbersByColour(String color) {
