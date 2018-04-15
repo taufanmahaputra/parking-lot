@@ -68,14 +68,14 @@ public class ParkingLot
 	}
 
 	public void status() {
-		System.out.println("Slot No. Registration No Colour");
+		System.out.println("Slot No. Registration No. Colour");
 		
 		for (Park park : parked) { 
         	Car car = park.getCar();		      
         	
         	if (!park.isAvailableForPark()) {
 	        	System.out.print(park.getSlotNumber());
-	        	System.out.print(" " + car.getNumberPlate() + " " + car.getColor());
+	        	System.out.print("\t" + car.getNumberPlate() + "\t" + car.getColor());
 	        	System.out.println();
 	        }
       	}
