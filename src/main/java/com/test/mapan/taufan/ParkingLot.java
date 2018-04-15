@@ -1,34 +1,35 @@
 package com.test.mapan.taufan;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Parking Lot Class
  *
  */
 public class ParkingLot 
 {
-    public static void processInput(String[] commands) {
-		String cmd = commands[0];
+	private int parkSize;
+	private Queue<Park> availablePark;
+	private ArrayList<Park> parked;
 
-		if (cmd.equals("create_parking_lot")) {
-			System.out.println("create_parking_lot");
+	ParkingLot(int size) {
+		parkSize = size;
+		availablePark = new LinkedList<Park>();
+		parked = new ArrayList<Park>();
+	}
+
+	public void parkCar(Car car) {
+		if (!isFull()) {
+			Park park = new Park(car);
+			parked.add(park);
 		}
-		else if (cmd.equals("park")) {
+		else
+			System.out.println("Sorry, parking lot is full");
+	}
 
-		}
-		else if (cmd.equals("leave")) {
-
-		}
-		else if (cmd.equals("status")) {
-
-		}
-		else if (cmd.equals("registration_numbers_for_cars_with_colour")) {
-
-		}
-		else if (cmd.equals("slot_numbers_for_cars_with_colour")) {
-
-		}
-		else { // equals to slot_number_for_registration_number
-
-		} 
+	public boolean isFull() {
+		return parked.size() >= parkSize;
 	}
 }
